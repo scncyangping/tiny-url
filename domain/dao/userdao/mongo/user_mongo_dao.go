@@ -28,7 +28,7 @@ func GetByName(userName string) (*entity.User, error) {
 		u   entity.User
 		err error
 	)
-	query := mongo.B{"name": userName}
+	query := mongo.B{"username": userName}
 	if err = mongo.DBFind(config.Base.Mongo.DbName, constants.User, query, &u); err != nil {
 		return &u, err
 	} else {

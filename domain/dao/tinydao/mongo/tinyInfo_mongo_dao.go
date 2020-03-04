@@ -36,6 +36,18 @@ func GetTinyInfoById(id string) (t entity.TinyInfo, e error) {
 	}
 }
 
+func GetTinyByMap(m map[string]interface{}) (t entity.TinyInfo, e error) {
+	var (
+		tinyInfo entity.TinyInfo
+		err      error
+	)
+	if err = mongo.DbFindOne(config.Base.Mongo.DbName, constants.TinyInfo, m, &tinyInfo); err != nil {
+		return tinyInfo, err
+	} else {
+		return tinyInfo, nil
+	}
+}
+
 func AddAccessCount(id string) error {
 	var (
 		err error
@@ -49,4 +61,15 @@ func AddAccessCount(id string) error {
 	}
 
 	return err
+}
+
+func UpdateTinyInfo(q map[string]interface{}, set map[string]interface{}) (e error) {
+	var (
+		err error
+	)
+	if err = mongo.DbUpdateOne(config.Base.Mongo.DbName, constants.TinyInfo, q, set); err != nil {
+		return err
+	} else {
+		return nil
+	}
 }

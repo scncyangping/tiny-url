@@ -14,3 +14,7 @@ type Jwt struct {
 	Issuer        string `yaml:"issuer"`
 	Secret        []byte
 }
+
+type Global struct {
+	CheckDbOnRedisNotFound bool `yaml:"checkDbOnRedisNotFound"`
+}

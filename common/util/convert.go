@@ -186,3 +186,12 @@ func (b *binaryConvert) AnyToDecimal(num string) int {
 	}
 	return newNum
 }
+
+func ConvertHttpUrl(url string) string {
+	if strings.HasPrefix(url, "http://") ||
+		strings.HasPrefix(url, "https://") {
+		return url
+	} else {
+		return "http://" + url
+	}
+}

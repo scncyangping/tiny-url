@@ -62,7 +62,8 @@ const (
 
 // 默认配置参数
 const (
-	JwtSecret     = "scncysyp"
-	JwtExpireTime = 3600
-	Issuer        = "YaPi"
+	JwtSecret         = "scncysyp"
+	JwtExpireTime     = 3600
+	Issuer            = "YaPi"
+	RedirectUrlHeader = "http://"
 )

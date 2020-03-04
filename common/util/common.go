@@ -128,7 +128,7 @@ func GetSession(ctx *gin.Context) *dto.Session {
 	var (
 		session *dto.Session
 	)
-	if s, ok := ctx.Get("session"); ok {
+	if s, ok := ctx.Get("Session"); ok {
 		if session, ok = s.(*dto.Session); ok {
 			return session
 		}

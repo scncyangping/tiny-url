@@ -39,6 +39,8 @@ type baseConfig struct {
 	Convert confpo.BinaryConvert
 	// Jwt设置
 	Jwt global_po.Jwt
+	// 其他全局设置
+	Global global_po.Global
 }
 
 func SetConfFile(file string) {

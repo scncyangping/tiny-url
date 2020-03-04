@@ -17,6 +17,22 @@ import (
 	"tinyUrl/domain/entity"
 )
 
+/**
+ * @api {post} /v1/api/register 注册
+ * @apiUse Header
+ * @apiVersion 0.0.1
+ * @apiGroup userGroup
+ * @apiPermission anyone
+ * @apiParamExample {json} 请求示例:
+ * {
+	"userName":"admin",
+	"password":"adminadmin"
+}
+ * @apiParam (body) {String} userName 	 用户名称.
+ * @apiParam (body) {String} password 	 密码.
+ * @apiUse FailResponse
+ * @apiUse SuccessResponse
+*/
 func Register(ctx *gin.Context) {
 	var (
 		auth *dto.AuthDto
@@ -50,6 +66,22 @@ func Register(ctx *gin.Context) {
 	http.SendSuccess(ctx)
 }
 
+/**
+ * @api {post} /v1/api/login 登录
+ * @apiUse Header
+ * @apiVersion 0.0.1
+ * @apiGroup userGroup
+ * @apiPermission anyone
+ * @apiParamExample {json} 请求示例:
+ * {
+	"userName":"admin",
+	"password":"adminadmin"
+}
+ * @apiParam (body) {String} userName 	 用户名称.
+ * @apiParam (body) {String} password 	 密码.
+ * @apiUse FailResponse
+ * @apiUse SuccessResponse
+*/
 func Login(ctx *gin.Context) {
 	var (
 		auth *dto.AuthDto

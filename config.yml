@@ -29,8 +29,11 @@ convert:
   # 长链接过期时间
   longUrlExpire: 60
   # 短链接过期时间
-  tinyUrlExpire: 60
+  tinyUrlExpire: 3600
 jwt:
   jwtSecret: 123
-  jwtExpireTime: 20
+  jwtExpireTime: 3600
   issuer: YaPi
+
+global:
+  checkDbOnRedisNotFound: true

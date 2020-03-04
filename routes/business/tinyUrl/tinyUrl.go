@@ -12,7 +12,7 @@ import (
 )
 
 func UrlRoute(router *gin.RouterGroup) {
-	router.POST("/", business.UrlTransform)
+	router.POST("/transform", business.UrlTransform)
 
 	router.POST("/custom", business.UrlTransformCustom)
 

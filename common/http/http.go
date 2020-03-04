@@ -34,6 +34,7 @@ const (
 	QueryDBError      = 3002
 	UserNotFound      = 3003
 	AddUserError      = 3004
+	DataNotFound      = 3005
 )
 
 const (
@@ -70,6 +71,7 @@ var statusText = map[int]string{
 	UserNotFound:              "user not found",
 	CreateTokenError:          "create token error",
 	AddUserError:              "add user error",
+	DataNotFound:              "data not found",
 }
 
 // StatusText returns a text for the HTTP status code. It returns the empty

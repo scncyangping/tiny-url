@@ -12,7 +12,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"strconv"
 	"strings"
-	"time"
 	"tinyUrl/common/constants"
 	"tinyUrl/common/http"
 	"tinyUrl/common/util"
@@ -25,11 +24,19 @@ import (
 	"tinyUrl/domain/vo"
 )
 
-/*
- * date : 2019-06-15
- * author : yangping
- * desc : 对应短链获取计数
- */
+/**
+* @api {get} /v1/api/tiny/url/info 对应短链获取计数
+* @apiName 对应短链获取计数
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {http} 请求示例:
+	http://localhost/v1/api/tiny/url/info?tinyUrl=www.baidu.com
+* @apiParam  {String} tinyUrl 	 短链名称.
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
 func UrlBaseInfo(ctx *gin.Context) {
 	var (
 		tinyDto dto.TinyDto
@@ -47,9 +54,9 @@ func UrlBaseInfo(ctx *gin.Context) {
 	}
 
 	// 若 Redis 不存在此key, 查询DB内是否有对应key
-	tinyId := strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
+	urlId := strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
 
-	if t, err := tinydao.GetTinyInfoById(tinyId); err != nil {
+	if t, err := tinydao.GetTinyByUrlId(urlId); err != nil {
 		result.Code = http.QueryDBError
 		http.SendFailureRep(ctx, result)
 	} else {
@@ -62,11 +69,22 @@ func UrlBaseInfo(ctx *gin.Context) {
 	}
 }
 
-/*
- * date : 2019-06-14
- * author : yangping
- * desc : 转换长网址到短网址
- */
+/**
+* @api {post} /v1/api/tiny/url/transform 生成随机短链接
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {json} 请求示例:
+	{
+	"longUrl" : "www.baidu.com",
+	"expireTime" : 60
+	}
+* @apiParam  {String} longUrl 	 	 原链接.
+* @apiParam  {Number} expireTime 	 过期时间(单位秒).
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
 func UrlTransform(ctx *gin.Context) {
 	var (
 		tinyInfo entity.TinyInfo
@@ -99,25 +117,26 @@ func UrlTransform(ctx *gin.Context) {
 	// 相同长链对应多个短链, 若需要 1对1, 单独校重处理
 	// 将ID转化为62进制
 	tinyUrl = convert.DecimalToAny(id)
-
-	tinyInfo.LongUrl = tinyDto.LongUrl
+	tinyInfo.Id = strconv.Itoa(int(snowflake.NextId()))
+	tinyInfo.LongUrl = util.ConvertHttpUrl(tinyDto.LongUrl)
 	tinyInfo.UserName = session.UserName
-	tinyInfo.ExpireTime = tinyDto.ExpireTime
+	tinyInfo.CreateTime = util.GetNowTimeStap()
+	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime) + tinyInfo.CreateTime
 	tinyInfo.Count = constants.ZERO
-	tinyInfo.Id = strconv.Itoa(id)
+	tinyInfo.UrlId = strconv.Itoa(id)
 	tinyInfo.TinyUrl = tinyUrl
 	tinyInfo.Type = constants.ConvertDefault
-	tinyInfo.CreateTime = util.GetNowTimeStap()
+	tinyInfo.Status = constants.ZERO
 
 	if err = tinydao.AddTinyInfo(&tinyInfo); err != nil {
 		http.SendFailureError(ctx, result, err)
 	} else {
 		// 放在Redis中
 		// 长链Redis中
-		addLongUrlRedisKey(tinyInfo.LongUrl, tinyInfo.TinyUrl, tinyInfo.Id, tinyInfo.UserName)
+		addLongUrlRedisKey(tinyInfo)
 
 		// 短链放Redis中
-		addTinyUrlRedisKey(tinyInfo.TinyUrl, tinyInfo.LongUrl, tinyInfo.Id, tinyDto.ExpireTime)
+		addTinyUrlRedisKey(tinyInfo)
 
 		result.Data = &dto.TinyDto{
 			LongUrl: tinyInfo.LongUrl,
@@ -127,11 +146,24 @@ func UrlTransform(ctx *gin.Context) {
 	}
 }
 
-/*
- * date : 2019-06-14
- * author : yangping
- * desc : 自定义短链接key
- */
+/**
+* @api {post} /v1/api/tiny/url/custom 自定义短链接
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {json} 请求示例:
+	{
+	"longUrl" : "www.baidu.com",
+	"tinyUrl" : "test",
+	"expireTime" : 60
+	}
+* @apiParam  {String} longUrl 	 	 原链接.
+* @apiParam  {String} tinyUrl 	 	 希望生成的短链接.
+* @apiParam  {Number} expireTime 	 过期时间(单位秒).
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
 func UrlTransformCustom(ctx *gin.Context) {
 	var (
 		tinyInfo entity.TinyInfo
@@ -161,30 +193,32 @@ func UrlTransformCustom(ctx *gin.Context) {
 
 	// 查询此短链是否存在 存在直接返回 -- Redis
 	// 自定义短链接会校验DB
-	if isExist, _ := checkTinyUrl(tinyDto.TinyUrl, true); isExist {
+	if isExist, _ := checkTinyUrl(tinyDto.TinyUrl); isExist {
 		result.Data = "此短链已存在"
 		http.SendSuccessRep(ctx, result)
 		return
 	}
 
 	// 不存在就新增
-	tinyInfo.Id = strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
+	tinyInfo.Id = strconv.Itoa(int(snowflake.NextId()))
+	tinyInfo.UrlId = strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
 	tinyInfo.UserName = session.UserName
-	tinyInfo.ExpireTime = tinyDto.ExpireTime
-	tinyInfo.LongUrl = tinyDto.LongUrl
+	tinyInfo.CreateTime = util.GetNowTimeStap()
+	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime) + tinyInfo.CreateTime
+	tinyInfo.LongUrl = util.ConvertHttpUrl(tinyDto.LongUrl)
 	tinyInfo.Count = constants.ZERO
 	tinyInfo.TinyUrl = tinyDto.TinyUrl
 	tinyInfo.Type = constants.ConvertCustom
-	tinyInfo.CreateTime = util.GetNowTimeStap()
+	tinyInfo.Status = constants.ZERO
 
 	if err = tinydao.AddTinyInfo(&tinyInfo); err != nil {
 		http.SendFailureError(ctx, result, err)
 	} else {
 		// 长链Redis中
-		addLongUrlRedisKey(tinyInfo.LongUrl, tinyInfo.TinyUrl, tinyInfo.Id, session.UserName)
+		addLongUrlRedisKey(tinyInfo)
 
 		// 短链放Redis中
-		addTinyUrlRedisKey(tinyInfo.TinyUrl, tinyInfo.LongUrl, tinyInfo.Id, tinyInfo.ExpireTime)
+		addTinyUrlRedisKey(tinyInfo)
 
 		result.Data = &dto.TinyDto{
 			LongUrl: tinyInfo.LongUrl,
@@ -195,11 +229,19 @@ func UrlTransformCustom(ctx *gin.Context) {
 	}
 }
 
-/*
- * date : 2019-06-14
- * author : yangping
- * desc : 短链接跳转长链接
- */
+/**
+* @api {get} /v1/api/go 跳转对应链接
+* @apiName 对应短链获取计数
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {http} 请求示例:
+	http://localhost/v1/api/go?tinyUrl=Nqstssd
+* @apiParam  {String} tinyUrl 	 短链名称.
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
 func Redirect4TinyUrl(ctx *gin.Context) {
 	var (
 		tinyDto dto.TinyDto
@@ -216,11 +258,10 @@ func Redirect4TinyUrl(ctx *gin.Context) {
 	}
 	// 查询此短链是否存在 存在直接返回 -- Redis
 	// 自定义短链接会校验DB
-	if isExist, longUrl := checkTinyUrl(tinyDto.TinyUrl, true); isExist {
-
+	if isExist, longUrl := checkTinyUrl(tinyDto.TinyUrl); isExist && longUrl != constants.EmptyStr {
 		// 若对应长链接存在,需要统计访问信息
 		// 可以放在消息队列里面去做 便于更多样的统计
-		// 这儿直接单开线程 同步信息到DB中
+		// 这里直接单开线程 同步信息到DB中
 		array := strings.Split(longUrl, constants.UnderLine)
 
 		go tinydao.AddAccessCount(array[len(array)-1])
@@ -244,7 +285,7 @@ func checkLongUrl(longUrl, userName string) (bool, string) {
 		err      error
 	)
 
-	redisKey = fmt.Sprintf("%s:%s:%s:%s", constants.URL, userName, constants.LongUrl, longUrl)
+	redisKey = fmt.Sprintf("%s:%s:%s:%s", constants.URL, constants.LongUrl, userName, longUrl)
 
 	// 查询此短链是否存在 存在直接返回 -- Redis
 	if str, err = getRedisKey(redisKey, false); err == nil {
@@ -258,17 +299,24 @@ func checkLongUrl(longUrl, userName string) (bool, string) {
  * author : yangping
  * desc : 同一长链接在设置时间周期内,不允许重复生成短链接,防止攻击
  */
-func addLongUrlRedisKey(longUrl, tinyUrl, id, userName string) (bool, error) {
+func addLongUrlRedisKey(tinyInfo entity.TinyInfo) (bool, error) {
 	var (
 		redisKey string
 		str      string
 		err      error
 	)
 
-	redisKey = fmt.Sprintf("%s:%s:%s:%s", constants.URL, userName, constants.LongUrl, longUrl)
+	redisKey = fmt.Sprintf("%s:%s:%s:%s",
+		constants.URL,
+		constants.LongUrl,
+		tinyInfo.UserName,
+		tinyInfo.LongUrl)
 	// 将这一条记录放在Redis当中
 
-	str = tinyUrl + constants.UnderLine + id
+	str = tinyInfo.TinyUrl +
+		constants.UnderLine +
+		tinyInfo.UrlId +
+		constants.UnderLine + tinyInfo.UserName
 	err = redis.SetByTtl(redisKey, str, config.Base.Convert.LongUrlExpire)
 
 	if err != nil {
@@ -282,22 +330,35 @@ func addLongUrlRedisKey(longUrl, tinyUrl, id, userName string) (bool, error) {
  * author : yangping
  * desc : 添加短链缓存
  */
-func addTinyUrlRedisKey(tinyUrl, longUrl, id string, expireTime int) (bool, error) {
+func addTinyUrlRedisKey(tinyInfo entity.TinyInfo) (bool, error) {
 	var (
 		redisKey string
 		str      string
 		err      error
 	)
 
-	redisKey = fmt.Sprintf("%s:%s:%s:", constants.URL, constants.TinyUrl, tinyUrl)
+	redisKey = fmt.Sprintf("%s:%s:%s",
+		constants.URL,
+		constants.TinyUrl,
+		tinyInfo.TinyUrl)
 	// 将这一条记录放在Redis当中
 
-	str = longUrl + constants.UnderLine + id
-	err = redis.SetByTtl(redisKey, str, int64(expireTime))
+	str = tinyInfo.LongUrl + constants.UnderLine + tinyInfo.UrlId
 
-	if err != nil {
-		return false, err
+	now := util.GetNowTimeStap()
+	// 若查出来的短链对应数据未过期
+	if tinyInfo.ExpireTime > now {
+		expireTime := int64(tinyInfo.ExpireTime) - now
+		err = redis.SetByTtl(redisKey, str, expireTime)
+		if err != nil {
+			return false, err
+		}
+	} else {
+		// 已过期
+		// 将原数据进行删除
+		go tinydao.DelteTinyByUrlId(tinyInfo.UrlId)
 	}
+
 	return true, nil
 }
 
@@ -306,29 +367,32 @@ func addTinyUrlRedisKey(tinyUrl, longUrl, id string, expireTime int) (bool, erro
  * author : yangping
  * desc : 校验Redis是否存在此短链接对应key 可设置是否校验DB
  */
-func checkTinyUrl(tinyUrl string, checkDb bool) (bool, string) {
+func checkTinyUrl(tinyUrl string) (bool, string) {
 	var (
 		convert  = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
 		redisKey string
 	)
 
-	redisKey = fmt.Sprintf("%s:%s:%s", constants.URL, constants.TinyUrl, tinyUrl)
+	redisKey = fmt.Sprintf("%s:%s:%s",
+		constants.URL,
+		constants.TinyUrl,
+		tinyUrl)
 
 	// 查询此短链是否存在 存在直接返回 -- Redis
-	if str, err := getRedisKey(redisKey, true); err == nil {
+	if str, err := getRedisKey(redisKey, false); err == nil {
 		return true, str
 	} else {
-		if checkDb {
+		if config.Base.Global.CheckDbOnRedisNotFound {
 			// 若 Redis 不存在此key, 查询DB内是否有对应key
-			tinyId := strconv.Itoa(convert.AnyToDecimal(tinyUrl))
-			t, error := tinydao.GetTinyInfoById(tinyId)
+			urlId := strconv.Itoa(convert.AnyToDecimal(tinyUrl))
+			t, error := tinydao.GetTinyByUrlId(urlId)
 			// 将这一条记录放在Redis当中
 			if error == nil {
-				now := time.Now().Second()
-				if t.ExpireTime > now {
-					addTinyUrlRedisKey(t.TinyUrl, t.LongUrl, t.Id, t.ExpireTime)
-					str := t.LongUrl + constants.UnderLine + t.Id
-					return true, str
+				if _, err := addTinyUrlRedisKey(t); err != nil {
+					return false, constants.EmptyStr
+
+				} else {
+					return true, constants.EmptyStr
 				}
 			}
 		}
