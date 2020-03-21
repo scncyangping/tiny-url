@@ -21,5 +21,4 @@ func InitBusinessRoute(router *gin.RouterGroup) {
 	router.GET("/go", business.Redirect4TinyUrl)
 	router.POST("/login", business.Login)
 	router.POST("/register", business.Register)
-
 }

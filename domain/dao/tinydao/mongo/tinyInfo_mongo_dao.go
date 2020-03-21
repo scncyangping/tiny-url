@@ -48,6 +48,30 @@ func GetTinyByMap(m map[string]interface{}) (t entity.TinyInfo, e error) {
 	}
 }
 
+func GetListTinyByMap(m map[string]interface{}) (t []entity.TinyInfo, e error) {
+	var (
+		tinyInfo []entity.TinyInfo
+		err      error
+	)
+	if err = mongo.DbFind(config.Base.Mongo.DbName, constants.TinyInfo, m, &tinyInfo); err != nil {
+		return tinyInfo, err
+	} else {
+		return tinyInfo, nil
+	}
+}
+
+func GetListTinyLimit(FData map[string]interface{}, skip, limit int) ([]entity.TinyInfo, error) {
+	var (
+		tinyList []entity.TinyInfo
+		err      error
+	)
+	if err = mongo.DBFindPageSort(config.Base.Mongo.DbName,
+		constants.TinyInfo, FData, skip, limit, "-createTime", &tinyList); err != nil {
+		return nil, err
+	}
+	return tinyList, nil
+}
+
 func AddAccessCount(id string) error {
 	var (
 		err error

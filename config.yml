@@ -32,7 +32,7 @@ convert:
   tinyUrlExpire: 3600
 jwt:
   jwtSecret: 123
-  jwtExpireTime: 3600
+  jwtExpireTime: 36000
   issuer: YaPi
 
 global:

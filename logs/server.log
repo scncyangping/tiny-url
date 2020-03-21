@@ -401,3 +401,242 @@
 {"level":"INFO","ts":"2020-03-04 18:42:42","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/custom [e0199752-5e04-11ea-b6f2-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"tinyUrl\" : \"7UzqInKWJt1\",\n\t\"expireTime\" : 600\n}"}
 {"level":"INFO","ts":"2020-03-04 18:42:42","caller":"http/http.go:133","msg":"Response [e0199752-5e04-11ea-b6f2-8c8590c910ef] To Client: &{200 OK 0xc000368300}"}
 {"level":"INFO","ts":"2020-03-04 18:42:53","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/go?tinyUrl=7UzqInKWJt1 [e6fe0242-5e04-11ea-b6f2-8c8590c910ef] from [::1]: "}
+{"level":"INFO","ts":"2020-03-16 16:46:01","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 16:46:01","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 16:46:23","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [9d447c1e-6762-11ea-bb89-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:46:23","caller":"http/http.go:133","msg":"Response [9d447c1e-6762-11ea-bb89-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0MzUxOTgzLCJpc3MiOiJZYVBpIn0.j5r8akpyCWerRbtWLXNgc3MJW1VnZQGPp584iyEWCVc}"}
+{"level":"INFO","ts":"2020-03-16 16:48:18","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/group [e2030230-6762-11ea-bb89-8c8590c910ef] from [::1]: {\n\t\n}"}
+{"level":"INFO","ts":"2020-03-16 16:48:18","caller":"http/http.go:158","msg":"Response [e2030230-6762-11ea-bb89-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 16:49:42","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 16:49:42","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 16:50:40","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/group [36bc45d4-6763-11ea-b2a9-8c8590c910ef] from [::1]: {\n\t\n}"}
+{"level":"INFO","ts":"2020-03-16 16:50:40","caller":"http/http.go:158","msg":"Response [36bc45d4-6763-11ea-b2a9-8c8590c910ef] To Client: &{1004 request token not found, please login first <nil>}"}
+{"level":"INFO","ts":"2020-03-16 16:50:52","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [3e05a416-6763-11ea-b2a9-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:50:52","caller":"http/http.go:133","msg":"Response [3e05a416-6763-11ea-b2a9-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0MzUyMjUyLCJpc3MiOiJZYVBpIn0.ykpUpGXYJzUMEO4V3O7-oO0oA6lVZQTlq0RHFDfhs_Y}"}
+{"level":"INFO","ts":"2020-03-16 16:51:11","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/group [490fd03e-6763-11ea-b2a9-8c8590c910ef] from [::1]: {\n\t\n}"}
+{"level":"INFO","ts":"2020-03-16 16:51:11","caller":"http/http.go:158","msg":"Response [490fd03e-6763-11ea-b2a9-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 16:51:25","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/group [51c70990-6763-11ea-b2a9-8c8590c910ef] from [::1]: {\n\t\"groupName\":\"测试分组01\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:51:26","caller":"http/http.go:133","msg":"Response [51c70990-6763-11ea-b2a9-8c8590c910ef] To Client: &{200 OK 0xc0003b9e60}"}
+{"level":"INFO","ts":"2020-03-16 16:52:24","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 16:52:24","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 16:52:30","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/group [78716a4a-6763-11ea-98b6-8c8590c910ef] from [::1]: {\n\t\"groupName\":\"测试分组01\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:52:30","caller":"http/http.go:133","msg":"Response [78716a4a-6763-11ea-98b6-8c8590c910ef] To Client: &{200 OK 0xc00024f700}"}
+{"level":"INFO","ts":"2020-03-16 16:55:25","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [e0b3b0a4-6763-11ea-98b6-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:55:25","caller":"http/http.go:158","msg":"Response [e0b3b0a4-6763-11ea-98b6-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 16:57:17","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 16:57:17","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 16:57:20","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [25222748-6764-11ea-9682-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:57:20","caller":"http/http.go:158","msg":"Response [25222748-6764-11ea-9682-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 16:57:27","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [29161fd0-6764-11ea-9682-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 16:58:54","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 16:58:54","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 16:58:59","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [5ff4b282-6764-11ea-a4ba-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:00:14","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:00:14","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:00:23","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [9216086a-6764-11ea-a3f0-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:00:23","caller":"http/http.go:133","msg":"Response [9216086a-6764-11ea-a3f0-8c8590c910ef] To Client: &{200 OK 0xc000264410}"}
+{"level":"INFO","ts":"2020-03-16 17:02:14","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:02:14","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:02:28","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [dcb84ed2-6764-11ea-91f0-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.douyu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称2\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:02:31","caller":"http/http.go:133","msg":"Response [dcb84ed2-6764-11ea-91f0-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.douyu.com tinyUrl:7UTkSn66k7K]}"}
+{"level":"INFO","ts":"2020-03-16 17:04:54","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list [33e05e02-6765-11ea-91f0-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:04:54","caller":"http/http.go:158","msg":"Response [33e05e02-6765-11ea-91f0-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 17:05:17","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list [412da006-6765-11ea-91f0-8c8590c910ef] from [::1]: {\n\t\"id\":\"123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:05:17","caller":"http/http.go:133","msg":"Response [412da006-6765-11ea-91f0-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-16 17:05:38","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list [4debcfc0-6765-11ea-91f0-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:05:38","caller":"http/http.go:133","msg":"Response [4debcfc0-6765-11ea-91f0-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-16 17:09:11","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:09:11","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:09:19","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list [d1c83b4e-6765-11ea-b022-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:09:19","caller":"http/http.go:133","msg":"Response [d1c83b4e-6765-11ea-b022-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-16 17:09:51","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list [e4f75dbc-6765-11ea-b022-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:09:51","caller":"http/http.go:133","msg":"Response [e4f75dbc-6765-11ea-b022-8c8590c910ef] To Client: &{200 OK [{6645253559209369600 6645253559196786688 admin http://www.baidu.com 7UTkzrKkb96 短链接名称 0 default 1584349223 1584349823 0 6645249103407292416} {6645254640324780032 6645254634142375936 admin http://www.douyu.com 7UTkSn66k7K 短链接名称2 0 default 1584349351 1584349951 0 6645249103407292416}]}"}
+{"level":"INFO","ts":"2020-03-16 17:11:29","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/list?id=6645249103407292416 [1efb6b52-6766-11ea-b022-8c8590c910ef] from [::1]: "}
+{"level":"INFO","ts":"2020-03-16 17:11:29","caller":"http/http.go:158","msg":"Response [1efb6b52-6766-11ea-b022-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-16 17:12:24","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:12:24","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:12:31","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [44062d9c-6766-11ea-bd0e-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:12:31","caller":"http/http.go:133","msg":"Response [44062d9c-6766-11ea-bd0e-8c8590c910ef] To Client: &{200 OK [{6645253559209369600 6645253559196786688 admin http://www.baidu.com 7UTkzrKkb96 短链接名称 0 default 1584349223 1584349823 0 6645249103407292416} {6645254640324780032 6645254634142375936 admin http://www.douyu.com 7UTkSn66k7K 短链接名称2 0 default 1584349351 1584349951 0 6645249103407292416}]}"}
+{"level":"INFO","ts":"2020-03-16 17:28:23","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:28:23","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:28:54","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [8e362190-6768-11ea-98ac-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.douyu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称2\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:28:54","caller":"http/http.go:133","msg":"Response [8e362190-6768-11ea-98ac-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.douyu.com tinyUrl:7UTjDR9xNkY]}"}
+{"level":"INFO","ts":"2020-03-16 17:29:05","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [9449280c-6768-11ea-98ac-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称1\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:29:05","caller":"http/http.go:133","msg":"Response [9449280c-6768-11ea-98ac-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.baidu.com tinyUrl:7UTjEBMAj84]}"}
+{"level":"INFO","ts":"2020-03-16 17:29:09","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [96c65ea6-6768-11ea-98ac-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:29:09","caller":"http/http.go:133","msg":"Response [96c65ea6-6768-11ea-98ac-8c8590c910ef] To Client: &{200 OK [{6645250288092651520 6645250288059097088 admin http://www.douyu.com 7UTjDR9xNkY 短链接名称2 0 default 1584350934 1584351534 0 6645249103407292416} {6645250330790666240 6645250330778083328 admin http://www.baidu.com 7UTjEBMAj84 短链接名称1 0 default 1584350945 1584351545 0 6645249103407292416}]}"}
+{"level":"INFO","ts":"2020-03-16 17:29:55","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:29:55","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:30:00","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [b548f1ae-6768-11ea-8814-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:30:00","caller":"http/http.go:133","msg":"Response [b548f1ae-6768-11ea-8814-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-16 17:30:06","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [b91097ec-6768-11ea-8814-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.baidu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称1\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:30:06","caller":"http/http.go:133","msg":"Response [b91097ec-6768-11ea-8814-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.baidu.com tinyUrl:http://172.16.1.50:9069/v1/api/go?tinyUrl=7UTjEoVOh0Y]}"}
+{"level":"INFO","ts":"2020-03-16 17:30:17","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [bfc29e0a-6768-11ea-8814-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.douyu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称2\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:30:18","caller":"http/http.go:133","msg":"Response [bfc29e0a-6768-11ea-8814-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.douyu.com tinyUrl:http://172.16.1.50:9069/v1/api/go?tinyUrl=7UTjFemkp7G]}"}
+{"level":"INFO","ts":"2020-03-16 17:30:29","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/go?tinyUrl=7UTjFemkp7G [c6d0c0f0-6768-11ea-8814-8c8590c910ef] from [172.16.1.50]: "}
+{"level":"INFO","ts":"2020-03-16 17:30:29","caller":"http/http.go:158","msg":"Response [c6d0c0f0-6768-11ea-8814-8c8590c910ef] To Client: &{400 Bad Request url not found}"}
+{"level":"INFO","ts":"2020-03-16 17:35:33","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:35:33","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:35:47","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [840be5dc-6769-11ea-a61f-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.douyu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称2\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:35:47","caller":"http/http.go:133","msg":"Response [840be5dc-6769-11ea-a61f-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.douyu.com tinyUrl:7UTkwAituEw]}"}
+{"level":"INFO","ts":"2020-03-16 17:36:22","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/go?tinyUrl=Nqstssd [994d52aa-6769-11ea-a61f-8c8590c910ef] from [::1]: "}
+{"level":"INFO","ts":"2020-03-16 17:36:22","caller":"http/http.go:158","msg":"Response [994d52aa-6769-11ea-a61f-8c8590c910ef] To Client: &{400 Bad Request url not found}"}
+{"level":"INFO","ts":"2020-03-16 17:36:30","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/go?tinyUrl=7UTkwAituEw [9dc4c2dc-6769-11ea-a61f-8c8590c910ef] from [::1]: "}
+{"level":"INFO","ts":"2020-03-16 17:45:59","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:45:59","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:46:10","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [f73a41ce-676a-11ea-8b07-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:46:10","caller":"http/http.go:133","msg":"Response [f73a41ce-676a-11ea-8b07-8c8590c910ef] To Client: &{200 OK [0xc0002fc770]}"}
+{"level":"INFO","ts":"2020-03-16 17:52:11","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 17:52:11","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 17:53:13","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [f35c8e30-676b-11ea-a809-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:53:13","caller":"http/http.go:158","msg":"Response [f35c8e30-676b-11ea-a809-8c8590c910ef] To Client: &{1002 Token Is Not Exists, Please Login <nil>}"}
+{"level":"INFO","ts":"2020-03-16 17:53:39","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [02f710ea-676c-11ea-a809-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:53:39","caller":"http/http.go:158","msg":"Response [02f710ea-676c-11ea-a809-8c8590c910ef] To Client: &{1002 Token Is Not Exists, Please Login <nil>}"}
+{"level":"INFO","ts":"2020-03-16 17:53:48","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [08b077c4-676c-11ea-a809-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:53:48","caller":"http/http.go:133","msg":"Response [08b077c4-676c-11ea-a809-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0MzU2MDI4LCJpc3MiOiJZYVBpIn0.VPpd1UPwqmmTooPRCVlP8dyLZ_XQLrter3TAEnl16QQ}"}
+{"level":"INFO","ts":"2020-03-16 17:53:55","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [0cbaccc0-676c-11ea-a809-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-16 17:53:55","caller":"http/http.go:133","msg":"Response [0cbaccc0-676c-11ea-a809-8c8590c910ef] To Client: &{200 OK [0xc00036f0a0]}"}
+{"level":"INFO","ts":"2020-03-16 18:07:24","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-16 18:07:24","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-16 18:07:31","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [f2ee9860-676d-11ea-98e6-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-16 18:07:31","caller":"http/http.go:133","msg":"Response [f2ee9860-676d-11ea-98e6-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0Mzg5MjUxLCJpc3MiOiJZYVBpIn0.WtykyVj9SsUQ4IcxZMDCXlatgdUSYixHm9HeGbMZ0L4}"}
+{"level":"INFO","ts":"2020-03-17 11:13:31","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-17 11:13:31","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-17 11:18:20","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [f3ea7f00-67fd-11ea-8a96-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-17 11:18:20","caller":"http/http.go:133","msg":"Response [f3ea7f00-67fd-11ea-8a96-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0NDUxMTAwLCJpc3MiOiJZYVBpIn0.-uPRyU9o0Z7DJJd-qT1fnlObIALnOLusJrEP9kcUxjc}"}
+{"level":"INFO","ts":"2020-03-17 11:30:49","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [b28a8d5a-67ff-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:30:49","caller":"http/http.go:133","msg":"Response [b28a8d5a-67ff-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0004a87c0]}"}
+{"level":"INFO","ts":"2020-03-17 11:32:04","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [df0fbcd8-67ff-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:32:04","caller":"http/http.go:133","msg":"Response [df0fbcd8-67ff-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc000216c20]}"}
+{"level":"INFO","ts":"2020-03-17 11:36:17","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [75fa9424-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:36:17","caller":"http/http.go:133","msg":"Response [75fa9424-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0000a1cc0]}"}
+{"level":"INFO","ts":"2020-03-17 11:37:13","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [9776b150-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:37:13","caller":"http/http.go:133","msg":"Response [9776b150-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc000193a80]}"}
+{"level":"INFO","ts":"2020-03-17 11:38:18","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [bdf3bad0-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:38:18","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [bdf40c88-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:38:18","caller":"http/http.go:133","msg":"Response [bdf40c88-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0003cdf20]}"}
+{"level":"INFO","ts":"2020-03-17 11:38:18","caller":"http/http.go:133","msg":"Response [bdf3bad0-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:38:55","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [d4505702-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:38:55","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [d4505ac2-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:38:55","caller":"http/http.go:133","msg":"Response [d4505ac2-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:38:55","caller":"http/http.go:133","msg":"Response [d4505702-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0000a13c0]}"}
+{"level":"INFO","ts":"2020-03-17 11:39:30","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [e90934ca-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:39:30","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [e909388a-6800-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:39:30","caller":"http/http.go:133","msg":"Response [e909388a-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:39:30","caller":"http/http.go:133","msg":"Response [e90934ca-6800-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0002606e0]}"}
+{"level":"INFO","ts":"2020-03-17 11:42:02","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [439e9970-6801-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:42:02","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [439e9966-6801-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:42:02","caller":"http/http.go:133","msg":"Response [439e9966-6801-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:42:02","caller":"http/http.go:133","msg":"Response [439e9970-6801-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0001ec620]}"}
+{"level":"INFO","ts":"2020-03-17 11:42:57","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [64768608-6801-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:42:57","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [64770308-6801-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:42:57","caller":"http/http.go:133","msg":"Response [64770308-6801-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:42:57","caller":"http/http.go:133","msg":"Response [64768608-6801-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0000a1ee0]}"}
+{"level":"INFO","ts":"2020-03-17 11:47:23","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [03073c4a-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:47:23","caller":"http/http.go:133","msg":"Response [03073c4a-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc00012e150]}"}
+{"level":"INFO","ts":"2020-03-17 11:47:56","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [16664eca-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:47:56","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [1666cf6c-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:47:56","caller":"http/http.go:133","msg":"Response [1666cf6c-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:47:56","caller":"http/http.go:133","msg":"Response [16664eca-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc000179bc0]}"}
+{"level":"INFO","ts":"2020-03-17 11:48:58","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [3b9cd146-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:48:58","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [3b9d9996-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:48:58","caller":"http/http.go:133","msg":"Response [3b9d9996-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:48:58","caller":"http/http.go:133","msg":"Response [3b9cd146-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0001786e0]}"}
+{"level":"INFO","ts":"2020-03-17 11:50:45","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [7af08ad6-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:50:45","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [7af08af4-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:50:45","caller":"http/http.go:133","msg":"Response [7af08af4-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:50:45","caller":"http/http.go:133","msg":"Response [7af08ad6-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc0003471c0]}"}
+{"level":"INFO","ts":"2020-03-17 11:51:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [8b6b1ab6-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:51:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [8b6b1ed0-6802-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:51:12","caller":"http/http.go:133","msg":"Response [8b6b1ed0-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:51:12","caller":"http/http.go:133","msg":"Response [8b6b1ab6-6802-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc00014ba80]}"}
+{"level":"INFO","ts":"2020-03-17 11:56:51","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [554428be-6803-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:56:51","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [55442a76-6803-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:56:51","caller":"http/http.go:133","msg":"Response [55442a76-6803-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:56:51","caller":"http/http.go:133","msg":"Response [554428be-6803-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc00039f720]}"}
+{"level":"INFO","ts":"2020-03-17 11:57:08","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [5f46b1a6-6803-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:57:08","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [5f46abc0-6803-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:57:08","caller":"http/http.go:133","msg":"Response [5f46abc0-6803-11ea-8a96-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:57:08","caller":"http/http.go:133","msg":"Response [5f46b1a6-6803-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc000121620]}"}
+{"level":"INFO","ts":"2020-03-17 11:58:16","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [880bd562-6803-11ea-8a96-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:58:16","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [880bd562-6803-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 11:58:16","caller":"http/http.go:133","msg":"Response [880bd562-6803-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 11:58:16","caller":"http/http.go:133","msg":"Response [880bd562-6803-11ea-8a96-8c8590c910ef] To Client: &{200 OK [0xc000120cc0]}"}
+{"level":"INFO","ts":"2020-03-17 12:02:29","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [1f1d3f36-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:02:29","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [1f1d4012-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:02:29","caller":"http/http.go:133","msg":"Response [1f1d4012-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:02:29","caller":"http/http.go:133","msg":"Response [1f1d3f36-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc00023c140]}"}
+{"level":"INFO","ts":"2020-03-17 12:04:22","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [620804a2-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:04:22","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [620804c0-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:04:22","caller":"http/http.go:133","msg":"Response [620804a2-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:04:22","caller":"http/http.go:133","msg":"Response [620804c0-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc00023c940]}"}
+{"level":"INFO","ts":"2020-03-17 12:05:26","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [8866f0ae-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:05:26","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [8866f0cc-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:05:26","caller":"http/http.go:133","msg":"Response [8866f0cc-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc0001982a0]}"}
+{"level":"INFO","ts":"2020-03-17 12:05:26","caller":"http/http.go:133","msg":"Response [8866f0ae-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:06:29","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [adbbe986-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:06:29","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [adbbf8f4-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:06:29","caller":"http/http.go:133","msg":"Response [adbbf8f4-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc000346d20]}"}
+{"level":"INFO","ts":"2020-03-17 12:06:29","caller":"http/http.go:133","msg":"Response [adbbe986-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:08:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [eb75edf8-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:08:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [eb75f208-6804-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:08:12","caller":"http/http.go:133","msg":"Response [eb75f208-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:08:12","caller":"http/http.go:133","msg":"Response [eb75edf8-6804-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc00000f740]}"}
+{"level":"INFO","ts":"2020-03-17 12:09:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [0f147d10-6805-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:09:12","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [0f14a416-6805-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:09:12","caller":"http/http.go:133","msg":"Response [0f14a416-6805-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:09:12","caller":"http/http.go:133","msg":"Response [0f147d10-6805-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc000166c80]}"}
+{"level":"INFO","ts":"2020-03-17 12:09:39","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [1f199f10-6805-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:09:39","caller":"http/http.go:133","msg":"Response [1f199f10-6805-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc00012e310]}"}
+{"level":"INFO","ts":"2020-03-17 12:09:43","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=1 [2199fc1c-6805-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:09:43","caller":"http/http.go:133","msg":"Response [2199fc1c-6805-11ea-8a97-8c8590c910ef] To Client: &{200 OK []}"}
+{"level":"INFO","ts":"2020-03-17 12:09:44","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list?id=6645249103407292416 [22560cd6-6805-11ea-8a97-8c8590c910ef] from [172.16.3.208]: "}
+{"level":"INFO","ts":"2020-03-17 12:09:44","caller":"http/http.go:133","msg":"Response [22560cd6-6805-11ea-8a97-8c8590c910ef] To Client: &{200 OK [0xc00012c850]}"}
+{"level":"INFO","ts":"2020-03-21 21:40:01","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 21:40:01","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 21:42:31","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/login [cfe744ec-6b79-11ea-b6be-8c8590c910ef] from [::1]: {\n\t\"userName\":\"admin\",\n\t\"password\":\"adminadmin123\"\n}"}
+{"level":"INFO","ts":"2020-03-21 21:42:31","caller":"http/http.go:133","msg":"Response [cfe744ec-6b79-11ea-b6be-8c8590c910ef] To Client: &{200 OK eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJhZG1pbmFkbWluMTIzIiwiZXhwIjoxNTg0ODM0MTUxLCJpc3MiOiJZYVBpIn0.uMeKLa81ym8ni3fhpyAlOzU-KIYLKCgm-Sq1YxuCa4U}"}
+{"level":"INFO","ts":"2020-03-21 21:43:02","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/group/list [e2a777aa-6b79-11ea-b6be-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 21:43:02","caller":"http/http.go:133","msg":"Response [e2a777aa-6b79-11ea-b6be-8c8590c910ef] To Client: &{200 OK [0xc0003cfa60]}"}
+{"level":"INFO","ts":"2020-03-21 21:43:38","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [f81a30e6-6b79-11ea-b6be-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 21:43:38","caller":"http/http.go:158","msg":"Response [f81a30e6-6b79-11ea-b6be-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-21 21:46:17","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 21:46:17","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 21:46:35","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [6164dc04-6b7a-11ea-9e4a-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 21:48:00","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 21:48:00","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 21:48:08","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [992a2e28-6b7a-11ea-964f-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 21:48:30","caller":"http/http.go:133","msg":"Response [992a2e28-6b7a-11ea-964f-8c8590c910ef] To Client: &{200 OK map[count:0 list:[]]}"}
+{"level":"INFO","ts":"2020-03-21 22:14:28","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 22:14:28","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 22:14:32","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [48fff6a4-6b7e-11ea-aa67-8c8590c910ef] from [::1]: {\n\t\"id\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 22:15:16","caller":"http/http.go:133","msg":"Response [48fff6a4-6b7e-11ea-aa67-8c8590c910ef] To Client: &{200 OK map[count:0 list:[]]}"}
+{"level":"INFO","ts":"2020-03-21 22:15:32","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [6cc94dc4-6b7e-11ea-aa67-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 22:15:35","caller":"http/http.go:158","msg":"Response [6cc94dc4-6b7e-11ea-aa67-8c8590c910ef] To Client: &{1001 Request Parameter Error <nil>}"}
+{"level":"INFO","ts":"2020-03-21 22:15:56","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 22:15:56","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 22:16:18","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [885d9086-6b7e-11ea-8942-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 22:16:18","caller":"http/http.go:133","msg":"Response [885d9086-6b7e-11ea-8942-8c8590c910ef] To Client: &{200 OK map[count:1 list:[0xc000312770]]}"}
+{"level":"INFO","ts":"2020-03-21 22:18:15","caller":"middleware/middleware.go:38","msg":"POST request /v1/api/tiny/url/transform [cde61560-6b7e-11ea-8942-8c8590c910ef] from [::1]: {\n\t\"longUrl\" : \"www.douyu.com\",\n\t\"expireTime\" : 600,\n\t\"tinyUrlName\":\"短链接名称2\",\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 22:18:15","caller":"http/http.go:133","msg":"Response [cde61560-6b7e-11ea-8942-8c8590c910ef] To Client: &{200 OK map[longUrl:http://www.douyu.com tinyUrl:7V1WBwYQUnK]}"}
+{"level":"INFO","ts":"2020-03-21 22:18:18","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [cfca9db0-6b7e-11ea-8942-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\"\n}"}
+{"level":"INFO","ts":"2020-03-21 22:18:18","caller":"http/http.go:133","msg":"Response [cfca9db0-6b7e-11ea-8942-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002dc230 0xc0002dc2a0]]}"}
+{"level":"INFO","ts":"2020-03-21 22:19:21","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [f59014d0-6b7e-11ea-8942-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":1\n}"}
+{"level":"INFO","ts":"2020-03-21 22:19:21","caller":"http/http.go:133","msg":"Response [f59014d0-6b7e-11ea-8942-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002dc460 0xc0002dc4d0]]}"}
+{"level":"INFO","ts":"2020-03-21 22:19:32","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [fc1f3ace-6b7e-11ea-8942-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":1\n}"}
+{"level":"INFO","ts":"2020-03-21 22:19:32","caller":"http/http.go:133","msg":"Response [fc1f3ace-6b7e-11ea-8942-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002a1ab0 0xc0002a1b20]]}"}
+{"level":"INFO","ts":"2020-03-21 22:19:47","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 22:19:47","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 22:19:49","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [05ee275e-6b7f-11ea-a6de-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":1\n}"}
+{"level":"INFO","ts":"2020-03-21 22:37:41","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 22:37:41","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 22:38:02","caller":"redis/redis.go:47","msg":"Redis Init Success, Host: 127.0.0.1:6379"}
+{"level":"INFO","ts":"2020-03-21 22:38:02","caller":"mongo/mongodb.go:58","msg":"Init MongoDB Success: mongodb://yangping:123456@127.0.0.1:27017/admin"}
+{"level":"INFO","ts":"2020-03-21 22:38:05","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [9320bb1c-6b81-11ea-863b-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":1\n}"}
+{"level":"INFO","ts":"2020-03-21 22:38:05","caller":"http/http.go:133","msg":"Response [9320bb1c-6b81-11ea-863b-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002d4700]]}"}
+{"level":"INFO","ts":"2020-03-21 22:38:11","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [9728332a-6b81-11ea-863b-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":2\n}"}
+{"level":"INFO","ts":"2020-03-21 22:38:11","caller":"http/http.go:133","msg":"Response [9728332a-6b81-11ea-863b-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002d48c0 0xc0002d4930]]}"}
+{"level":"INFO","ts":"2020-03-21 22:38:19","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [9bf1d7e4-6b81-11ea-863b-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":2,\n\t\"pageSize\":2\n}"}
+{"level":"INFO","ts":"2020-03-21 22:38:19","caller":"http/http.go:133","msg":"Response [9bf1d7e4-6b81-11ea-863b-8c8590c910ef] To Client: &{200 OK map[count:2 list:[]]}"}
+{"level":"INFO","ts":"2020-03-21 22:38:27","caller":"middleware/middleware.go:38","msg":"GET request /v1/api/tiny/list [a0521894-6b81-11ea-863b-8c8590c910ef] from [::1]: {\n\t\"groupId\":\"6645249103407292416\",\n\t\"page\":1,\n\t\"pageSize\":1\n}"}
+{"level":"INFO","ts":"2020-03-21 22:38:27","caller":"http/http.go:133","msg":"Response [a0521894-6b81-11ea-863b-8c8590c910ef] To Client: &{200 OK map[count:2 list:[0xc0002d4a80]]}"}

@@ -27,6 +27,12 @@ func GetTinyByUrlId(urlId string) (t entity.TinyInfo, e error) {
 	return mongo.GetTinyByMap(m)
 }
 
+func GetTinyByGroupId(fData map[string]interface{}, skip, limit int) (t []entity.TinyInfo, e error) {
+	fData["status"] = 0
+	// return mongo.GetListTinyByMap(m)
+	return mongo.GetListTinyLimit(fData, skip, limit)
+}
+
 func DelteTinyByUrlId(urlId string) (e error) {
 	q := map[string]interface{}{
 		"urlId": urlId,

@@ -39,6 +39,8 @@ const (
 )
 
 const (
+	//
+	Domain = "http://172.16.1.50:9069/v1/api/go?tinyUrl="
 	// 短链生成方式   默认
 	ConvertDefault = "default"
 	// 短链生成方式	自定义
@@ -55,9 +57,10 @@ const (
 
 // 数据库表  mongodb
 const (
-	TinyInfo = "tiny_info"
-	User     = "user"
-	JwtToken = "jwt_token"
+	TinyGroup = "tiny_group"
+	TinyInfo  = "tiny_info"
+	User      = "user"
+	JwtToken  = "jwt_token"
 )
 
 // 默认配置参数

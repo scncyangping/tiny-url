@@ -17,7 +17,9 @@ import (
 	"tinyUrl/common/util"
 	"tinyUrl/common/util/snowflake"
 	"tinyUrl/config"
+	"tinyUrl/config/db/mongo"
 	"tinyUrl/config/db/redis"
+	"tinyUrl/domain/dao/groupdao"
 	"tinyUrl/domain/dao/tinyDao"
 	"tinyUrl/domain/dto"
 	"tinyUrl/domain/entity"
@@ -77,10 +79,15 @@ func UrlBaseInfo(ctx *gin.Context) {
 * @apiPermission anyone
 * @apiParamExample {json} 请求示例:
 	{
-	"longUrl" : "www.baidu.com",
-	"expireTime" : 60
+		"longUrl" : "www.douyu.com",
+		"expireTime" : 600,
+		"tinyUrlName":"短链接名称2",
+		"groupId":"6645249103407292416"
 	}
 * @apiParam  {String} longUrl 	 	 原链接.
+* @apiParam  {String} tinyUrlName 	 短链名称.
+* @apiParam  {String} groupId 	 	 组ID.
+
 * @apiParam  {Number} expireTime 	 过期时间(单位秒).
 * @apiUse FailResponse
 * @apiUse SuccessResponse
@@ -102,7 +109,8 @@ func UrlTransform(ctx *gin.Context) {
 	)
 
 	// 请求参数校验
-	if err = ctx.Bind(&tinyDto); err != nil || tinyDto.LongUrl == constants.EmptyStr {
+	if err = ctx.Bind(&tinyDto); err != nil || tinyDto.LongUrl == constants.EmptyStr ||
+		tinyDto.LongUrl == constants.EmptyStr {
 		result.Code = http.RequestParameterError
 		http.SendFailureRep(ctx, result)
 		return
@@ -127,7 +135,8 @@ func UrlTransform(ctx *gin.Context) {
 	tinyInfo.TinyUrl = tinyUrl
 	tinyInfo.Type = constants.ConvertDefault
 	tinyInfo.Status = constants.ZERO
-
+	tinyInfo.TinyUrlName = tinyDto.TinyUrlName
+	tinyInfo.GroupId = tinyDto.GroupId
 	if err = tinydao.AddTinyInfo(&tinyInfo); err != nil {
 		http.SendFailureError(ctx, result, err)
 	} else {
@@ -138,9 +147,9 @@ func UrlTransform(ctx *gin.Context) {
 		// 短链放Redis中
 		addTinyUrlRedisKey(tinyInfo)
 
-		result.Data = &dto.TinyDto{
-			LongUrl: tinyInfo.LongUrl,
-			TinyUrl: tinyInfo.TinyUrl,
+		result.Data = map[string]string{
+			"longUrl": tinyInfo.LongUrl,
+			"tinyUrl": tinyInfo.TinyUrl,
 		}
 		http.SendSuccessRep(ctx, result)
 	}
@@ -271,6 +280,185 @@ func Redirect4TinyUrl(ctx *gin.Context) {
 	}
 	result.Data = "url not found"
 	http.SendFailureRep(ctx, result)
+}
+
+/**
+* @api {post} /v1/api/tiny/group 添加分组
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {json} 请求示例:
+	{
+		"groupName":"测试分组01"
+	}
+* @apiParam  {String} groupName 	 	 分组名称.
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
+func AddTinyGroup(ctx *gin.Context) {
+	var (
+		group    entity.Group
+		groupDto dto.GroupDto
+		err      error
+		// 雪花算法生成ID
+		id = int(snowflake.NextId())
+		// 获取进制转换工具
+		// 初始化返回结构体
+		result = http.Instance()
+		// session = util.GetSession(ctx)
+	)
+
+	// 请求参数校验
+	if err = ctx.Bind(&groupDto); err != nil || groupDto.GroupName == constants.EmptyStr {
+		result.Code = http.RequestParameterError
+		http.SendFailureRep(ctx, result)
+		return
+	}
+
+	group.Id = strconv.Itoa(int(id))
+	group.GroupName = groupDto.GroupName
+	group.CreateTime = util.GetNowTimeStap()
+	group.Status = 0
+
+	if err = groupdao.AddTinyGroup(&group); err != nil {
+		http.SendFailureError(ctx, result, err)
+	} else {
+		result.Data = &dto.GroupDto{
+			GroupName: groupDto.GroupName,
+			Id:        group.Id,
+		}
+		http.SendSuccessRep(ctx, result)
+	}
+}
+
+/**
+* @api {get} /v1/api/tiny/list?id=6645249103407292416 短链列表(暂无分页)
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {json} 请求示例:
+{
+	"groupId":"6645249103407292416",
+	"page":1,
+	"pageSize":1
+}
+* @apiParam  {String} groupId 	 	 分组Id.
+* @apiSuccessExample {json} 返回示例:
+	{
+    "code": 200,
+    "msg": "OK",
+    "data": {
+        "count": 2,
+        "list": [
+            {
+                "id": "6647134219821666304",
+                "longUrl": "http://www.douyu.com",
+                "tinyUrl": "7V1WBwYQUnK",
+                "count": 0,
+                "createTime": "2020-03-21 22:18:15",
+                "expireTime": "2020-03-21 22:28:15",
+                "tinyUrlName": "短链接名称2"
+            }
+        ]
+    }
+}
+* @apiUse FailResponse
+*/
+func TinyGroupList(ctx *gin.Context) {
+	var (
+		// 雪花算法生成ID
+		// 获取进制转换工具
+		// 初始化返回结构体
+		result = http.Instance()
+		fData  = http.QueryData(ctx)
+		voList = make([]*vo.TinyVO, 0)
+		// session = util.GetSession(ctx)
+	)
+
+	// 请求参数校验
+	if fData.Data["groupId"] == nil {
+		result.Code = http.RequestParameterError
+		http.SendFailureRep(ctx, result)
+		return
+	}
+
+	if resLis, err := tinydao.GetTinyByGroupId(fData.Data, fData.Skip, fData.Limit); err != nil {
+		http.SendFailureError(ctx, result, err)
+	} else {
+		for _, v := range resLis {
+			vo := &vo.TinyVO{
+				Id:          v.Id,
+				LongUrl:     v.LongUrl,
+				TinyUrl:     v.TinyUrl,
+				TinyUrlName: v.TinyUrlName,
+				CreateTime:  util.GetTimeFormat(v.CreateTime),
+				ExpireTime:  util.GetTimeFormat(v.ExpireTime),
+			}
+			voList = append(voList, vo)
+		}
+		fData.Data["status"] = 0
+		countAll, err := mongo.GetCountByDb(config.Base.Mongo.DbName, constants.TinyInfo, fData.Data)
+
+		if err != nil {
+			result.Code = http.QueryDBError
+			http.SendFailureRep(ctx, result)
+			return
+		}
+		// 查询总数
+		result.Data = map[string]interface{}{
+			"list":  voList,
+			"count": countAll,
+		}
+		http.SendSuccessRep(ctx, result)
+	}
+}
+
+/**
+* @api {get} /v1/api/tiny/group/list 查询分组列表
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {http} 请求示例:
+		http://localhost:9069/v1/api/tiny/group/list
+* @apiSuccessExample {json} 返回示例:
+{
+    "code": 200,
+    "msg": "OK",
+    "data": [
+        {
+            "id": "6645249103407292416",
+            "groupName": "测试分组01"
+        }
+    ]
+}
+* @apiUse FailResponse
+*/
+func GroupList(ctx *gin.Context) {
+	var (
+		// 雪花算法生成ID
+		// 获取进制转换工具
+		// 初始化返回结构体
+		result = http.Instance()
+		voList = make([]*dto.GroupDto, 0)
+		// session = util.GetSession(ctx)
+	)
+	// 请求参数校验
+	if resLis, err := groupdao.GetGroupList(); err != nil {
+		http.SendFailureError(ctx, result, err)
+	} else {
+		for _, v := range resLis {
+			vo := &dto.GroupDto{
+				Id:        v.Id,
+				GroupName: v.GroupName,
+			}
+			voList = append(voList, vo)
+		}
+		result.Data = voList
+		http.SendSuccessRep(ctx, result)
+	}
 }
 
 /*
