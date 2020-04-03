@@ -21,14 +21,17 @@ func UpdateTinyById(id string, tiny *entity.TinyInfo) error {
 	}
 
 	set := map[string]interface{}{
-		"longUrl":     tiny.LongUrl,
-		"createTime":  tiny.CreateTime,
-		"expireTime":  tiny.ExpireTime,
-		"count":       tiny.Count,
-		"urlId":       tiny.UrlId,
-		"tinyUrl":     tiny.TinyUrl,
-		"tinyUrlName": tiny.TinyUrlName,
+		"$set": map[string]interface{}{
+			"longUrl":     tiny.LongUrl,
+			"createTime":  tiny.CreateTime,
+			"expireTime":  tiny.ExpireTime,
+			"count":       tiny.Count,
+			"urlId":       tiny.UrlId,
+			"tinyUrl":     tiny.TinyUrl,
+			"tinyUrlName": tiny.TinyUrlName,
+		},
 	}
+
 	return mongo.UpdateTinyInfo(q, set)
 }
 

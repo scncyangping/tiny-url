@@ -34,8 +34,8 @@ import (
 * @apiGroup urlGroup
 * @apiPermission anyone
 * @apiParamExample {http} 请求示例:
-	http://localhost/v1/api/tiny/url/info?id=123
-* @apiParam  {String} tinyUrl 	 短链名称.
+	http://localhost/v1/api/tiny/url/info?tinyId=123
+* @apiParam  {String} tinyId 	 锻炼id.
 * @apiSuccessExample {json} 返回示例:
 	{
     "code": 200,
@@ -96,7 +96,8 @@ func UrlBaseInfo(ctx *gin.Context) {
 		"longUrl" : "www.douyu.com",
 		"expireTime" : 600,
 		"tinyUrlName":"短链接名称2",
-		"groupId":"6645249103407292416"
+		"groupId":"6645249103407292416",
+		"tinyId":"6645249103407292412"
 	}
 * @apiParam  {String} longUrl 	 	 原链接.
 * @apiParam  {String} tinyUrlName 	 短链名称.
@@ -118,8 +119,8 @@ func UpdateUrlTransform(ctx *gin.Context) {
 		// 获取进制转换工具
 		convert = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
 		// 初始化返回结构体
-		result  = http.Instance()
-		session = util.GetSession(ctx)
+		result = http.Instance()
+		//session = util.GetSession(ctx)
 	)
 
 	// 请求参数校验
@@ -130,11 +131,11 @@ func UpdateUrlTransform(ctx *gin.Context) {
 	}
 
 	// 查询此短链是否存在 存在直接返回 -- Redis
-	if isExist, _ := checkLongUrl(tinyDto.LongUrl, session.UserName); isExist {
-		result.Data = "此长链已存在"
-		http.SendSuccessRep(ctx, result)
-		return
-	}
+	//if isExist, _ := checkLongUrl(tinyDto.LongUrl, session.UserName); isExist {
+	//	result.Data = "此长链已存在"
+	//	http.SendSuccessRep(ctx, result)
+	//	return
+	//}
 	// 相同长链对应多个短链, 若需要 1对1, 单独校重处理
 	// 将ID转化为62进制
 	tinyUrl = convert.DecimalToAny(id)
