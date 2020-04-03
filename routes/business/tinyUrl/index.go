@@ -15,7 +15,7 @@ import (
 func InitTinyUrlRoute(router *gin.RouterGroup) {
 	router.Use(middleware.TokenAuthMiddleware())
 	router.POST("/group", business.AddTinyGroup)
-	router.GET("/list", business.TinyGroupList)
+	router.POST("/list", business.TinyGroupList)
 	router.GET("/group/list", business.GroupList)
 
 	tinyUrl := router.Group("/url")

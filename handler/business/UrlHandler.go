@@ -27,45 +27,138 @@ import (
 )
 
 /**
-* @api {get} /v1/api/tiny/url/info 对应短链获取计数
+* @api {get} /v1/api/tiny/url/info 对应短链基础信息
 * @apiName 对应短链获取计数
 * @apiUse Header
 * @apiVersion 0.0.1
 * @apiGroup urlGroup
 * @apiPermission anyone
 * @apiParamExample {http} 请求示例:
-	http://localhost/v1/api/tiny/url/info?tinyUrl=www.baidu.com
+	http://localhost/v1/api/tiny/url/info?id=123
 * @apiParam  {String} tinyUrl 	 短链名称.
+* @apiSuccessExample {json} 返回示例:
+	{
+    "code": 200,
+    "msg": "OK",
+    "data": {
+        "tinyId": "6651482131138191360",
+        "groupId": "6651482343403528192",
+        "longUrl": "http://baidu.com",
+        "tinyUrl": "7VlReWQLV2o",
+        "expireTime": 0,
+        "tinyUrlName": "aaaa"
+    }
+}
 * @apiUse FailResponse
 * @apiUse SuccessResponse
 */
 func UrlBaseInfo(ctx *gin.Context) {
 	var (
 		tinyDto dto.TinyDto
-		convert = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
-		err     error
+		// convert = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
+		err error
 		// 初始化返回结构体
 		result = http.Instance()
 	)
 	// 请求参数校验
 	if err = ctx.Bind(&tinyDto); err != nil ||
-		tinyDto.TinyUrl == constants.EmptyStr {
+		tinyDto.TinyId == constants.EmptyStr {
 		result.Code = http.ParameterConvertError
 		http.SendFailureRep(ctx, result)
 		return
 	}
 
 	// 若 Redis 不存在此key, 查询DB内是否有对应key
-	urlId := strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
-
-	if t, err := tinydao.GetTinyByUrlId(urlId); err != nil {
+	// urlId := strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
+	if t, err := tinydao.GetTinyById(tinyDto.TinyId); err != nil {
 		result.Code = http.QueryDBError
 		http.SendFailureRep(ctx, result)
 	} else {
-		result.Data = &vo.TinyVO{
-			LongUrl: t.LongUrl,
-			TinyUrl: t.TinyUrl,
-			Count:   t.Count,
+		result.Data = &dto.TinyDto{
+			TinyId:      t.Id,
+			GroupId:     t.GroupId,
+			LongUrl:     t.LongUrl,
+			TinyUrl:     t.TinyUrl,
+			TinyUrlName: t.TinyUrlName,
+		}
+		http.SendSuccessRep(ctx, result)
+	}
+}
+
+/**
+* @api {put} /v1/api/tiny/url/transform 更新短链接
+* @apiUse Header
+* @apiVersion 0.0.1
+* @apiGroup urlGroup
+* @apiPermission anyone
+* @apiParamExample {json} 请求示例:
+	{
+		"longUrl" : "www.douyu.com",
+		"expireTime" : 600,
+		"tinyUrlName":"短链接名称2",
+		"groupId":"6645249103407292416"
+	}
+* @apiParam  {String} longUrl 	 	 原链接.
+* @apiParam  {String} tinyUrlName 	 短链名称.
+* @apiParam  {String} groupId 	 	 组ID.
+
+* @apiParam  {Number} expireTime 	 过期时间(单位秒).
+* @apiUse FailResponse
+* @apiUse SuccessResponse
+*/
+func UpdateUrlTransform(ctx *gin.Context) {
+	var (
+		tinyInfo entity.TinyInfo
+		tinyDto  dto.TinyDto
+		err      error
+		// 短连接
+		tinyUrl string
+		// 雪花算法生成ID
+		id = int(snowflake.NextId())
+		// 获取进制转换工具
+		convert = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
+		// 初始化返回结构体
+		result  = http.Instance()
+		session = util.GetSession(ctx)
+	)
+
+	// 请求参数校验
+	if err = ctx.Bind(&tinyDto); err != nil || tinyDto.LongUrl == constants.EmptyStr {
+		result.Code = http.RequestParameterError
+		http.SendFailureRep(ctx, result)
+		return
+	}
+
+	// 查询此短链是否存在 存在直接返回 -- Redis
+	if isExist, _ := checkLongUrl(tinyDto.LongUrl, session.UserName); isExist {
+		result.Data = "此长链已存在"
+		http.SendSuccessRep(ctx, result)
+		return
+	}
+	// 相同长链对应多个短链, 若需要 1对1, 单独校重处理
+	// 将ID转化为62进制
+	tinyUrl = convert.DecimalToAny(id)
+	tinyInfo.LongUrl = util.ConvertHttpUrl(tinyDto.LongUrl)
+	tinyInfo.CreateTime = util.GetNowTimeStap()
+	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime*60) + tinyInfo.CreateTime
+	tinyInfo.Count = constants.ZERO
+	tinyInfo.UrlId = strconv.Itoa(id)
+	tinyInfo.TinyUrl = tinyUrl
+	tinyInfo.TinyUrlName = tinyDto.TinyUrlName
+
+	if err = tinydao.UpdateTinyById(tinyDto.TinyId, &tinyInfo); err != nil {
+		http.SendFailureError(ctx, result, err)
+	} else {
+		// 放在Redis中
+		// 长链Redis中
+		addLongUrlRedisKey(tinyInfo)
+
+		// 短链放Redis中
+		addTinyUrlRedisKey(tinyInfo)
+
+		result.Data = map[string]string{
+			"longUrl": tinyInfo.LongUrl,
+			"tinyUrl": tinyInfo.TinyUrl,
 		}
 		http.SendSuccessRep(ctx, result)
 	}
@@ -109,8 +202,7 @@ func UrlTransform(ctx *gin.Context) {
 	)
 
 	// 请求参数校验
-	if err = ctx.Bind(&tinyDto); err != nil || tinyDto.LongUrl == constants.EmptyStr ||
-		tinyDto.LongUrl == constants.EmptyStr {
+	if err = ctx.Bind(&tinyDto); err != nil || tinyDto.LongUrl == constants.EmptyStr {
 		result.Code = http.RequestParameterError
 		http.SendFailureRep(ctx, result)
 		return
@@ -129,7 +221,7 @@ func UrlTransform(ctx *gin.Context) {
 	tinyInfo.LongUrl = util.ConvertHttpUrl(tinyDto.LongUrl)
 	tinyInfo.UserName = session.UserName
 	tinyInfo.CreateTime = util.GetNowTimeStap()
-	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime) + tinyInfo.CreateTime
+	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime*60) + tinyInfo.CreateTime
 	tinyInfo.Count = constants.ZERO
 	tinyInfo.UrlId = strconv.Itoa(id)
 	tinyInfo.TinyUrl = tinyUrl
@@ -213,7 +305,7 @@ func UrlTransformCustom(ctx *gin.Context) {
 	tinyInfo.UrlId = strconv.Itoa(convert.AnyToDecimal(tinyDto.TinyUrl))
 	tinyInfo.UserName = session.UserName
 	tinyInfo.CreateTime = util.GetNowTimeStap()
-	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime) + tinyInfo.CreateTime
+	tinyInfo.ExpireTime = int64(tinyDto.ExpireTime*60) + tinyInfo.CreateTime
 	tinyInfo.LongUrl = util.ConvertHttpUrl(tinyDto.LongUrl)
 	tinyInfo.Count = constants.ZERO
 	tinyInfo.TinyUrl = tinyDto.TinyUrl
@@ -333,7 +425,7 @@ func AddTinyGroup(ctx *gin.Context) {
 }
 
 /**
-* @api {get} /v1/api/tiny/list?id=6645249103407292416 短链列表(暂无分页)
+* @api {post} /v1/api/tiny/list 短链列表
 * @apiUse Header
 * @apiVersion 0.0.1
 * @apiGroup urlGroup

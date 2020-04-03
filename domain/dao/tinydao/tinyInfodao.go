@@ -15,9 +15,33 @@ func AddTinyInfo(tiny *entity.TinyInfo) (err error) {
 	return mongo.AddTinyInfo(tiny)
 }
 
+func UpdateTinyById(id string, tiny *entity.TinyInfo) error {
+	q := map[string]interface{}{
+		"_id": id,
+	}
+
+	set := map[string]interface{}{
+		"longUrl":     tiny.LongUrl,
+		"createTime":  tiny.CreateTime,
+		"expireTime":  tiny.ExpireTime,
+		"count":       tiny.Count,
+		"urlId":       tiny.UrlId,
+		"tinyUrl":     tiny.TinyUrl,
+		"tinyUrlName": tiny.TinyUrlName,
+	}
+	return mongo.UpdateTinyInfo(q, set)
+}
+
 func GetTinyInfoById(id string) (t entity.TinyInfo, e error) {
 
 	return mongo.GetTinyInfoById(id)
+}
+
+func GetTinyById(id string) (t entity.TinyInfo, e error) {
+	m := make(map[string]interface{})
+	m["_id"] = id
+	m["status"] = 0
+	return mongo.GetTinyByMap(m)
 }
 
 func GetTinyByUrlId(urlId string) (t entity.TinyInfo, e error) {

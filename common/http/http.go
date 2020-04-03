@@ -533,19 +533,19 @@ func GetLimitAndSkip(data map[string]interface{}) (int, int) {
 	page := 1
 	limit := 10
 	skip := 0
-	if util.Contains("page", data) {
-		if util.IsExpectType(data["page"]) == util.String {
-			page, _ = strconv.Atoi(data["page"].(string))
+	if util.Contains("currentPage", data) {
+		if util.IsExpectType(data["currentPage"]) == util.String {
+			page, _ = strconv.Atoi(data["currentPage"].(string))
 		} else {
-			_, ok := data["page"].(float64)
+			_, ok := data["currentPage"].(float64)
 
 			if !ok {
-				page = data["page"].(int)
+				page = data["currentPage"].(int)
 			} else {
-				page = int(data["page"].(float64))
+				page = int(data["currentPage"].(float64))
 			}
 		}
-		delete(data, "page")
+		delete(data, "currentPage")
 	}
 
 	if util.Contains("pageSize", data) {

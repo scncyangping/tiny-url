@@ -7,6 +7,7 @@
 package dto
 
 type TinyDto struct {
+	TinyId      string `form:"tinyId" json:"tinyId" xml:"tinyId" bson:"tinyId"`
 	GroupId     string `form:"groupId" json:"groupId" xml:"groupId" bson:"groupId"`
 	LongUrl     string `form:"longUrl" json:"longUrl" xml:"longUrl"`
 	TinyUrl     string `form:"tinyUrl" json:"tinyUrl" xml:"tinyUrl"`
