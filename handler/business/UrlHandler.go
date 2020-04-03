@@ -53,6 +53,7 @@ import (
 * @apiUse SuccessResponse
 */
 func UrlBaseInfo(ctx *gin.Context) {
+
 	var (
 		tinyDto dto.TinyDto
 		// convert = util.NewBinaryConvert(config.Base.Convert.BinaryStr)
